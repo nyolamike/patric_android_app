@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medical Health Care Services DB</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/f83123bd4b.js" crossorigin="anonymous"></script>
+
+    <!-- Favicons -->
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app_wrapper">
+        <header>
+            <div class="collapse bg-dark" id="navbarHeader">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-muted">Add some information about the album below, the author, or any other
+                                background context. Make it a few sentences long so folks can pick up some informative
+                                tidbits. Then, link them off to some social networking sites or contact information.</p>
+                        </div>
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-white">Contact</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                                <li><a href="#" class="text-white">Email me</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-dark fixed-top bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <i class="fa fa-laptop-medical"></i>
+                        <strong>
+                            &nbsp;&nbsp;Medical Services Database
+                        </strong>
+                    </a>
+
+                    <span class="navbar-text">
+                        <a class="nav-item" href="index.html">
+                            <i class="fa fa-home"></i>
+                            Home
+                        </a>
+                        <a class="nav-item" href="search.html">
+                            <i class="fa fa-search-plus"></i>
+                            Search & Find
+                        </a>
+                        <a :class="'nav-item ' + (menu_link.link.indexOf('kawempe.html') > -1 ? ' active ' : ' ')"
+                            v-for="menu_link in menu_links" :href="menu_link.link">{{menu_link.title}}</a>
+                    </span>
+                </div>
+
+
+            </div>
+        </header>
+
+        <main role="main">
+            
+            <section :class="'jumbotron text-center pt-2 pb-2 bg-hospital-' + hospital.bg_name">
+                <div class="container hospital-banner">
+                    <br /><br /><br /><br />
+                    <h4>&nbsp;</h4>
+                    <br />
+                </div>
+
+            </section>
+
+            <div class="album py-1 bg-light">
+                <div class="container padding">
+                    <br />
+                    <div class="text-center">
+                        <h4>{{hospital.index_tile_name}}</h4> <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-left">
+                                    {{hospital.description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="album py-1 bg-white" v-if="hospital.location">
+                    <div :class="'container padding ' + (hospital.location.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.location.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-map green"></i>
+                                Location and Map</h5> <br />
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <iframe :src="hospital.location.map" width="600" height="450" frameborder="0"
+                                        style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                </div>
+                                <div class="col-md-5" v-html="hospital.location.description">
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="albumx py-1 bg-light" v-if="hospital.immunization_department">
+                    <div :class="'container padding ' + (hospital.immunization_department.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.immunization_department.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-syringe green"></i> {{hospital.immunization_department.name}}</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{hospital.immunization_department.description}}
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.immunization_department.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                {{hospital.immunization_department.services_list_heading}}
+                                <br />
+                                <ul>
+                                    <li v-for="service in hospital.immunization_department.services_list">
+                                        {{service}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.outpatients_clinic">
+                    <div :class="'container padding ' + (hospital.outpatients_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.outpatients_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.outpatients_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img :src="hospital.outpatients_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.outpatients_clinic.description"></div>
+                            </div>
+                        </div>
+
+                        <div class="row" v-if="hospital.outpatients_clinic.table">
+                            <div class="col-md-12">
+                                <br/>
+                                <table class="table table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th v-for="head in hospital.outpatients_clinic.table.headers">{{head}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="row in hospital.outpatients_clinic.table.rows">
+                                            <td v-for="item in row">{{item}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.dental_clinic">
+                    <div :class="'container padding ' + (hospital.dental_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.dental_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.dental_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.dental_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.dental_clinic.description"></div>
+                                <div v-if="hospital.dental_clinic.services_list_heading">
+                                    <br/>
+                                    {{hospital.dental_clinic.services_list_heading}}
+                                    <br />
+                                    <ul>
+                                        <li v-for="service in hospital.dental_clinic.services_list">
+                                            {{service}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" v-if="hospital.dental_clinic.dental_procedure">
+                            <div class="col-md-12 text-center">
+                                {{hospital.dental_clinic.dental_procedure.name}}
+                            </div>
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>procedure</th>
+                                        <th>services</th>
+                                        <th>price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in hospital.dental_clinic.dental_procedure.items">
+                                        <td>{{item.num}}</td>
+                                        <td>{{item.procedure}}</td>
+                                        <td>{{item.service}}</td>
+                                        <td class="text-right">{{item.price}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12 text-center" v-if="hospital.dental_clinic.dental_procedure_local_anesthesia">
+                                <br /><br />
+                                {{hospital.dental_clinic.dental_procedure_local_anesthesia.name}}
+                            </div>
+                            <table class="table table-stripped" v-if="hospital.dental_clinic.dental_procedure_local_anesthesia">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>procedure</th>
+                                        <th>services</th>
+                                        <th>price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in hospital.dental_clinic.dental_procedure_local_anesthesia.items">
+                                        <td>{{item.num}}</td>
+                                        <td>{{item.procedure}}</td>
+                                        <td>{{item.service}}</td>
+                                        <td class="text-right">{{item.price}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.skin_clinic">
+                    <div :class="'container padding ' + (hospital.skin_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.skin_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.skin_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.skin_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.skin_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.medical_assessment_clinic">
+                    <div :class="'container padding ' + (hospital.medical_assessment_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.medical_assessment_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.medical_assessment_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.medical_assessment_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.medical_assessment_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.physiotherapy_clinic">
+                    <div :class="'container padding ' + (hospital.physiotherapy_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.physiotherapy_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.physiotherapy_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.physiotherapy_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.physiotherapy_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.radiology_clinic">
+                    <div :class="'container padding ' + (hospital.radiology_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.radiology_clinic.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.radiology_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.radiology_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.radiology_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" v-if="hospital.radiology_clinic.table">
+                            <div class="col-md-12">
+                                <br/>
+                                <table class="table table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th v-for="head in hospital.radiology_clinic.table.headers">{{head}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="row in hospital.radiology_clinic.table.rows">
+                                            <td v-for="item in row">{{item}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.laboratory_services">
+                    <div :class="'container padding ' + (hospital.laboratory_services.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.laboratory_services.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-microscope green"></i> {{hospital.laboratory_services.name}}</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" v-html="hospital.laboratory_services.description"></div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row" v-for="item in hospital.laboratory_services.items">
+                            <div class="col-md-4" >
+                                <br />
+                                <img :src="item.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-8" >
+                                <br />
+                                <h4>{{item.name}}</h4>
+                                <p class="" v-html="item.description"></p>
+                                <ul v-if="item.list_items">
+                                    <li v-for="service in item.list_items">
+                                        {{(typeof service == 'string'? service : service.name )}}
+                                        <ul v-if="typeof service != 'string'">
+                                            <li v-for="inner_service in service.list_items">
+                                                {{inner_service}}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="row" v-if="item.list_items_mixed">
+                                    <div class="col-md-6"  v-for="service in item.list_items_mixed">
+                                        <b>{{(typeof service == 'string'? service : service.name )}}</b>
+                                        <ul v-if="typeof service != 'string'">
+                                            <li v-for="inner_service in service.list_items">
+                                                {{inner_service}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr v-if="item.list_items_sold" />
+                                <p class="" v-if="item.list_items_sold">
+                                    Tests that are offered at a fee are: 
+                                </p>
+                                <div class="row" v-if="item.list_items_sold">
+                                    <div class="col-md-6"  v-for="service in item.list_items_sold">
+                                        <b>{{(typeof service == 'string'? service : service.name )}}</b>
+                                        <ul v-if="typeof service != 'string'">
+                                            <li v-for="inner_service in service.list_items">
+                                                {{inner_service}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" ><hr/> </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                
+                
+                <div class="albumx py-1 bg-light" v-if="hospital.ent_clinic">
+                    <div :class="'container padding ' + (hospital.ent_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.ent_clinic.search_anchor"></a>
+                        <br />
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.ent_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.ent_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.ent_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.out_patients_clinic">
+                    <div :class="'container padding ' + (hospital.out_patients_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.out_patients_clinic.search_anchor"></a>
+                        <br />
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.out_patients_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.out_patients_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.out_patients_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12" v-if="hospital.out_patients_clinic.table_schedule">
+                                <p class="text-center" >{{hospital.out_patients_clinic.services_list_heading}}</p>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Day Of The Week</th>
+                                            <th>Clinics</th>
+                                            <th>Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in hospital.out_patients_clinic.table_schedule">
+                                            <td>{{item.num}}</td>
+                                            <td>{{item.day_of_week}}</td>
+                                            <td>{{item.clinics}}</td>
+                                            <td>{{item.requirements}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.sickle_cell_clinic">
+                    <div :class="'container padding ' + (hospital.sickle_cell_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.sickle_cell_clinic.search_anchor"></a>
+                        <br />
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.sickle_cell_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.sickle_cell_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.sickle_cell_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.tuber_clinic">
+                    <a :name="hospital.search_anchor"></a>
+                    <div :class="'container padding ' + (hospital.tuber_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.tuber_clinic.search_anchor"></a>
+                        <br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.tuber_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.tuber_clinic.image" class="immunization-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.tuber_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.wards">
+                    <div :class="'container padding ' + (hospital.wards.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.wards.search_anchor"></a>
+                        <br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-procedures green"></i> {{hospital.wards.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li v-for="service in hospital.wards.list">
+                                       <div v-html="service"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.burns_clinic">
+                    <div :class="'container padding ' + (hospital.burns_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.burns_clinic.search_anchor"></a>
+                        <br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.burns_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.burns_clinic.image" class="burns-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.burns_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-light" v-if="hospital.kidney_clinic">
+                    <div :class="'container padding ' + (hospital.kidney_clinic.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.kidney_clinic.search_anchor"></a>
+                        <br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.kidney_clinic.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img :src="hospital.kidney_clinic.image" class="burns-image">
+                            </div>
+                            <div class="col-md-7">
+                                <div v-html="hospital.kidney_clinic.description"></div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="albumx py-1 bg-white" v-if="hospital.services_table">
+                    <div :class="'container padding ' + (hospital.services_table.search_anchor == searched_anchor?'more_padding':'')">
+                        <a :name="hospital.services_table.search_anchor"></a><br />
+                        
+                        <div class="text-left">
+                            <h5> <i class="fa fa-clinic-medical green"></i> {{hospital.services_table.name}}</h5>
+                        </div>
+                        <br />
+                        <div class="row" v-if="hospital.services_table.table">
+                            <div class="col-md-12">
+                                <br/>
+                                <table class="table table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th v-for="head in hospital.services_table.table.headers">{{head}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="row in hospital.services_table.table.rows"
+                                        :class="(row.search_anchor == searched_anchor?'more_row_padding':'')"
+                                        >
+                                            <td v-for="item in row.items">
+                                                <div v-html="item"></div>
+                                            </td>
+                                            <td style="visibility: hidden;">
+                                                <a :name="row.search_anchor"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        
+                        <br /><br />
+                    </div>
+                </div>
+
+        </main>
+
+        <footer class="text-muted bg-dark">
+            <div class="container">
+                <p class="float-right ">
+                    <a href="#" class="text-white">Back to top</a>
+                </p>
+                <p class="text-white">Medical Health Care Service, is a quick way to get to know the services!</p>
+                <p class="text-white">Offered by government public hospital &copy; 2020 Patric. All rights reserves</p
+                    class="text-white">
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="jquery.slim.min.js"><\/script>')</script>
+    <script src="/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="page_data.js"></script>
+    <script src="common_medical_services.js"></script>
+    <script src="hospital.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script src="tawk.js"></script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medical Health Care Services DB</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/f83123bd4b.js" crossorigin="anonymous"></script>
+
+    <!-- Favicons -->
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app_wrapper">
+        <header>
+            <div class="collapse bg-dark" id="navbarHeader">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-muted">Add some information about the album below, the author, or any other
+                                background context. Make it a few sentences long so folks can pick up some informative
+                                tidbits. Then, link them off to some social networking sites or contact information.</p>
+                        </div>
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-white">Contact</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                                <li><a href="#" class="text-white">Email me</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-dark fixed-top bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <i class="fa fa-laptop-medical"></i>
+                        <strong>
+                            &nbsp;&nbsp;Medical Services Database
+                        </strong>
+                    </a>
+                    
+                      <span class="navbar-text">
+                        <a class="nav-item active" href="index.html">
+                            <i class="fa fa-home"></i>
+                            Home 
+                        </a>
+                        <a class="nav-item" href="search.html">
+                            <i class="fa fa-search-plus"></i>
+                            Search
+                        </a>
+                        <a class="nav-item" v-for="menu_link in menu_links" :href="menu_link.link">{{menu_link.title}}</a>
+                      </span>
+                </div>
+                
+                  
+            </div>
+        </header>
+
+        <main role="main">
+            
+            <section class="jumbotron text-center pt-2 pb-2 bg-img-1">
+                <div class="container ">
+                    <br/><br/><br/><br/><br/><br/>
+                    <h4>Welcome to the national medical information portal.</h4>
+                    <p class="lead text-muted cool-text">
+                        Here you find quality uptodate information regarding the medical services offered accross the national hospitals
+                    </p>
+                    <br/>
+                </div>
+                
+            </section>
+            
+            <div class="album py-1 bg-light">
+                <div class="container padding">
+                    <br/>
+                    <div class="text-center"> <h5> Select a hospital from below or 
+                        <a href="/search.html" class="green-link"> click here to search <i class="fa fa-search"></i></a>
+                    </h5> <br/>
+                    <div class="row">
+                        <div class="col-md-6 index-hospital-col" @click="gotohospital(hospital)" v-for="hospital in page_data.hospitals" >
+                            <div class="index-hospital-div">
+                                <img :src="hospital.image">
+                                <div class="name">{{hospital.index_tile_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="album py-1 bg-white">
+                <div class="container text-center  padding">
+                    <br/><br/>
+                    <p class="lead text-muted">
+                        Information you can find in this website application portal 
+                    </p>
+                    <br/><br/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <i class="fa fa-clinic-medical services-icon"></i>
+                            <h4>Special Clinics</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                Hospitals arrange clinics that operate on specific diseases, these clinics 
+                                have specific days of the week and time.
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-clinic-medical  services-icon"></i>
+                            <h4>Hospital Departments</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                Get to know the information about the different departments in the hospitals.
+                                In this way you will be able to know where to find a particular service and how 
+                                to get there.
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-money  services-icon"></i>
+                            <h4>Service Costs</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                Be informed of the cost implications of the services offered, there 
+                                are several free services and some services require you to deposit some 
+                                money
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-comment-medical  services-icon"></i>
+                            <h4>Help and Care</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                We are available 24/7 to assist you in finding the information you want.
+                                Our customer care service is friendly and very delighted to communicate with 
+                                you.
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-user-md services-icon"></i>
+                            <h4>Search By Symptoms</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                You can search by a symptom that you have to find the medical service that you 
+                                may need and how to acquire that service.
+                                
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-map  services-icon"></i>
+                            <h4>Location Information</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                We have included maps that show where to find these hospitals and 
+                                and services, so that you can quickly find your way.
+
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-x-ray  services-icon"></i>
+                            <h4>Service Procedures</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                For example, we list down the laboratory procedures of the 
+                                different hospitals. These are steps on how a service gets delivered to a patient 
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-procedures  services-icon"></i>
+                            <h4>Hospital Wards</h4>
+                            <p class="lead text-muted cool-text text-left">
+                                The database also includes a listing of several hospital wards 
+                                Wards are rooms were special medical services are given usually
+                                to indoor patients.
+                            </p>
+                        </div>
+                    </div>
+                    <br/><br/>
+                </div>
+            </div>
+
+
+        </main>
+
+        <footer class="text-muted bg-dark">
+            <div class="container">
+                <p class="float-right ">
+                    <a href="#" class="text-white">Back to top</a>
+                </p>
+                <p class="text-white">Medical Health Care Service, is a quick way to get to know the services!</p>
+                <p class="text-white">Offered by government public hospital &copy; 2020 Patric. All rights reserves</p
+                    class="text-white">
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="jquery.slim.min.js"><\/script>')</script>
+    <script src="/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="page_data.js"></script>
+    <script src="common_medical_services.js"></script>
+    <script src="index.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script src="tawk.js"></script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

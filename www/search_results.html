@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medical Health Care Services DB</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/f83123bd4b.js" crossorigin="anonymous"></script>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app_wrapper">
+        <header>
+            <div class="collapse bg-dark" id="navbarHeader">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-muted">Add some information about the album below, the author, or any other
+                                background context. Make it a few sentences long so folks can pick up some informative
+                                tidbits. Then, link them off to some social networking sites or contact information.</p>
+                        </div>
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-white">Contact</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                                <li><a href="#" class="text-white">Email me</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-dark fixed-top bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <i class="fa fa-laptop-medical"></i>
+                        <strong>
+                            &nbsp;&nbsp;Medical Services Database
+                        </strong>
+                    </a>
+                    
+                      <span class="navbar-text">
+                        <a class="nav-item active" href="index.html">Search & Find </a>
+                        <a class="nav-item" v-for="menu_link in menu_links" :href="menu_link.link">{{menu_link.title}}</a>
+                      </span>
+                </div>
+                
+                  
+            </div>
+        </header>
+
+        <main role="main">
+            
+            <section class="jumbotron text-center pt-2 pb-2">
+                <div class="container">
+                    <br/><br/><br/>
+                    <h4>Search Results:</h4>
+                    <p>
+                        <div class="input-group mb-3">
+                            <input type="text" v-model="query" class="form-control" placeholder="enter service name, medication etc ..."
+                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append ">
+                                <button class="input-group-button btn btn-success " @click="search">
+                                    <i class="fas fa-search fa-fw fa-sm top-margin-4"></i> search
+                                </button>
+                            </div>
+                        </div>
+                    </p>
+
+                    <br/>
+
+                </div>
+                
+            </section>
+            <div class="progress" v-if="is_searching">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div v-if="results.length == 0 && is_searching" class="text-center"> <h5> ... looking up info from the portal .... </h5> <br/></div>
+                    <div v-if="results.length == 0 && !is_searching" class="text-center"> <h5> !Ooops No records found </h5> <br/></div>
+                    <div v-if="results.length == 1" class="text-center"> <h5> We found over {{results.length}} result for your search</h5> <br/></div>
+                    <div v-if="results.length > 1" class="text-center"> <h5> We found over {{results.length}} results for your search</h5> <br/></div>
+                    <div class="row">
+                        <div class="col-md-12" id="search_results_body">
+                            <div class="row search-result-row" v-for="result in results" >
+                                <div class="col-md-3 col-sm-12" >
+                                    <img :src="result.image" class="search-service-image">
+                                </div>
+                                <div class="col-md-9 col-sm-12" >
+                                    <b><h4>{{result.title}}</h4></b>
+                                    <p class="search-body" v-html="result.body"></p>
+                                    <p class="mb-0">
+                                        Hospital: <span class="green"><strong>{{result.hospital}}</strong></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <!-- Department: <span class="green"><strong>{{result.department}}</strong></span> -->
+                                        <span style="float:right" class="green" @click="gotoresult(result)">
+                                            <i class="fa fa-eye"></i> View Details
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-muted bg-dark">
+            <div class="container">
+                <p class="float-right ">
+                    <a href="#" class="text-white">Back to top</a>
+                </p>
+                <p class="text-white">Medical Health Care Service, is a quick way to get to know the services!</p>
+                <p class="text-white">Offered by government public hospital &copy; 2020 Patric. All rights reserves</p
+                    class="text-white">
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <!-- https://www.itsolutionstuff.com/post/jquery-highlight-search-text-in-div-using-highlight-js-with-exampleexample.html -->
+    
+    <script>window.jQuery || document.write('<script src="jquery.slim.min.js"><\/script>')</script>
+    <script src="jquery.highlight-5.js"></script>
+    
+    <script src="/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="page_data.js"></script>
+    <script src="common_medical_services.js"></script>
+    <script src="search_results.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script src="tawk.js"></script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

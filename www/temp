@@ -1,0 +1,1 @@
+keytool -genkey -v -keystore mike_keystore.keystore -alias mike_keystore -keyalg RSA -keysize 2048 -validity 10000
