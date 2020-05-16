@@ -525,7 +525,7 @@ $(function () {
 
                         //search through services_lists
                         var found = "";
-                        for (let index = 0; index < hospital.out_patients_clinic.table_schedule.length; index++) {
+                        for (let index = 0; hospital.out_patients_clinic.table_schedule && index < hospital.out_patients_clinic.table_schedule.length; index++) {
                             var item = hospital.out_patients_clinic.table_schedule[index];
                             if(item.clinics.toLowerCase().indexOf(param) > -1){
                                 found = item.clinics; //no need for other params to add the same search results
